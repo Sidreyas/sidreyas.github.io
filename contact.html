@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Sudharsan Kumar® · AI Engineer</title>
+  <meta name="description" content="Get in touch with Sudharsan Kumar — AI Engineer & freelance developer. Available for LLM/GenAI apps, AI consulting and web development." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .contact-page{padding:140px 0 40px}
+    .contact-page .micro{color:var(--ink)}
+    .contact-page h1{font-size:clamp(3rem,11vw,10rem)}
+    .contact-page .meta-row{display:flex;justify-content:flex-end;gap:8px;align-items:baseline;color:var(--faint)}
+    .contact-page .meta-row .scroll-tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+    .crumbs{font-size:.8rem;letter-spacing:.06em;color:var(--faint);margin-bottom:16px}
+    .crumbs a:hover{color:var(--orange)}
+    /* layout: form left, info right */
+    .c-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start;margin-top:40px}
+    .c-form{background:#fff;border:1px solid var(--line);border-radius:10px;padding:38px}
+    .c-form h3{font-family:'Anton';text-transform:uppercase;font-size:1.8rem;margin-bottom:6px}
+    .c-form .sub{color:var(--dim);margin-bottom:24px;font-size:.95rem}
+    .c-form label{display:block;font-family:'Inter';font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:16px 0 7px}
+    .c-form input,.c-form textarea,.c-form select{width:100%;border:1px solid var(--line-2);border-radius:7px;padding:13px 15px;font-family:'Inter';font-size:.95rem;color:var(--ink);background:var(--bg)}
+    .c-form input:focus,.c-form textarea:focus,.c-form select:focus{outline:none;border-color:var(--orange)}
+    .c-form textarea{min-height:120px;resize:vertical}
+    .c-form .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .c-form .btn{margin-top:22px;width:100%;justify-content:center}
+    .c-form .ok{display:none;text-align:center;padding:50px 10px}
+    .c-form .ok .ic{width:70px;height:70px;border-radius:50%;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;margin:0 auto 16px}
+    .c-form .ok .ic .msi{font-size:2.2rem}
+    .c-form .ok h3{margin-bottom:8px}
+    .c-form.sent form{display:none}
+    .c-form.sent .ok{display:block}
+    /* info column */
+    .c-info .lead{color:var(--dim);font-size:1.05rem;max-width:420px;margin-bottom:26px}
+    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+    .c-socials{display:flex;gap:12px;margin-top:24px}
+    .c-socials a{width:48px;height:48px;border:1px solid var(--line-2);border-radius:50%;display:grid;place-items:center;color:var(--ink);transition:.2s}
+    .c-socials a:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+    @media(max-width:900px){.c-layout{grid-template-columns:1fr;gap:36px}}
+    @media(max-width:560px){.c-form .frow{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <!-- header (solid orange bar) -->
+  <header class="bar">
+    <div class="wrap nav">
+      <a href="index.html" class="brand">Sudharsan®</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="work.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <a href="#book" class="nav-call">Book a Free Call</a>
+        <button class="menu-btn" id="menuBtn"><span class="msi">menu</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section class="contact-page">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Home</a> / Contact</div>
+      <span class="micro">Sudharsan®</span>
+      <h1 class="display">CONTACT <span class="gray">ME</span></h1>
+      <div class="meta-row"><span class="micro orange">©2026</span><span class="scroll-tag">Let's build something</span></div>
+    </div>
+  </section>
+
+  <!-- contact layout -->
+  <section class="pad" id="book" style="padding-top:20px">
+    <div class="wrap">
+      <div class="c-layout">
+
+        <!-- form -->
+        <div class="c-form reveal" id="cForm">
+          <form id="contactForm">
+            <h3>Start a project</h3>
+            <p class="sub">Tell me what you're building. I reply within 24 hours.</p>
+            <div class="frow">
+              <div><label>Name</label><input type="text" required placeholder="Your name"></div>
+              <div><label>Email</label><input type="email" required placeholder="you@email.com"></div>
+            </div>
+            <label>What do you need?</label>
+            <select>
+              <option>LLM / GenAI App</option>
+              <option>AI Consulting &amp; Strategy</option>
+              <option>Web Development</option>
+              <option>AI Automation</option>
+              <option>Something else</option>
+            </select>
+            <label>Project details</label>
+            <textarea required placeholder="A few lines about your idea, timeline, and budget…"></textarea>
+            <button type="submit" class="btn btn-orange">Send message <span class="ico"><span class="msi">north_east</span></span></button>
+          </form>
+          <div class="ok">
+            <div class="ic"><span class="msi">check</span></div>
+            <h3>Message sent!</h3>
+            <p class="sub">Thanks — I'll get back to you within 24 hours.</p>
+            <a class="btn btn-dark" href="index.html" style="justify-content:center">Back to home</a>
+          </div>
+        </div>
+
+        <!-- info -->
+        <div class="c-info reveal">
+          <div class="sec-tag"><span class="pill"><span class="dot"></span> Ready to start?</span></div>
+          <p class="lead" style="margin-top:14px">Prefer a quick chat? Reach me directly — I'm an AI Engineer who freelances on LLM apps, AI strategy &amp; modern websites.</p>
+          <div class="contact-grid">
+            <div class="cbox"><span class="lbl">Address</span><span class="val">Remote ·<br>Worldwide</span></div>
+            <div class="cbox"><span class="lbl">Open Hours</span><span class="val">Daily ·<br>9 AM – 9 PM</span></div>
+            <div class="cbox"><span class="lbl">Phone</span><a href="https://wa.me/919342206435" target="_blank" rel="noopener"><span class="val sm">+91 93422 06435</span></a></div>
+            <div class="cbox"><span class="lbl">Email</span><a href="mailto:hello@yourdomain.com"><span class="val sm">hello@yourdomain.com</span></a></div>
+          </div>
+          <div class="c-socials">
+            <a href="https://github.com/Sidreyas" target="_blank" rel="noopener" aria-label="GitHub"><span class="msi">code</span></a>
+            <a href="https://wa.me/919342206435" target="_blank" rel="noopener" aria-label="WhatsApp"><span class="msi">chat</span></a>
+            <a href="mailto:hello@yourdomain.com" aria-label="Email"><span class="msi">mail</span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <a href="index.html" class="brand" style="font-size:1.1rem">Sudharsan Kumar®</a>
+        <div class="foot-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Sudharsan Kumar — AI Engineer &amp; Freelance Developer.</span>
+        <span>Built with care · Available for freelance work</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const mb=document.getElementById('menuBtn'), nl=document.getElementById('navLinks');
+    mb.addEventListener('click',()=>nl.classList.toggle('open'));
+    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
+
+    // form submit -> success state (demo, no backend)
+    document.getElementById('contactForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      document.getElementById('cForm').classList.add('sent');
+    });
+
+    // reveal on scroll
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+'ms';io.observe(el);});
+  </script>
+</body>
+</html>
