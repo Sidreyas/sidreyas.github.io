@@ -39,8 +39,9 @@
     .c-info .lead{color:var(--dim);font-size:1.05rem;max-width:420px;margin-bottom:26px}
     .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
     .c-socials{display:flex;gap:12px;margin-top:24px}
-    .c-socials a{width:48px;height:48px;border:1px solid var(--line-2);border-radius:50%;display:grid;place-items:center;color:var(--ink);transition:.2s}
-    .c-socials a:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+    .c-socials a{width:52px;height:52px;border:1px solid var(--line-2);border-radius:50%;background:#fff;display:grid;place-items:center;transition:.2s}
+    .c-socials a:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
+    .c-socials .brand-ico{width:26px;height:26px;display:block}
     @media(max-width:900px){.c-layout{grid-template-columns:1fr;gap:36px}}
     @media(max-width:560px){.c-form .frow{grid-template-columns:1fr}}
   </style>
@@ -120,9 +121,21 @@
             <div class="cbox"><span class="lbl">Email</span><a href="mailto:hello@yourdomain.com"><span class="val sm">hello@yourdomain.com</span></a></div>
           </div>
           <div class="c-socials">
-            <a href="https://github.com/Sidreyas" target="_blank" rel="noopener" aria-label="GitHub"><span class="msi">code</span></a>
-            <a href="https://wa.me/919342206435" target="_blank" rel="noopener" aria-label="WhatsApp"><span class="msi">chat</span></a>
-            <a href="mailto:hello@yourdomain.com" aria-label="Email"><span class="msi">mail</span></a>
+            <a href="https://wa.me/919342206435" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg class="brand-ico" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="#25d366" d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.13 6.744 3.05 9.38L1.054 31.3l6.124-1.958A15.9 15.9 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0z"/>
+                <path fill="#fff" d="M25.314 22.594c-.386 1.09-1.918 1.994-3.14 2.258-.836.178-1.928.32-5.604-1.204-4.7-1.948-7.726-6.724-7.962-7.034-.226-.31-1.9-2.53-1.9-4.826s1.166-3.42 1.636-3.9c.386-.394.96-.574 1.51-.574.178 0 .338.01.482.016.434.018.652.044.938.728.356.86 1.226 2.99 1.33 3.21.106.222.212.522.062.832-.14.32-.264.454-.484.71-.22.256-.43.452-.65.726-.2.24-.426.498-.172.94.254.43 1.13 1.862 2.42 3.012 1.664 1.482 3.012 1.954 3.498 2.156.362.15.794.114 1.058-.168.336-.362.75-.964 1.172-1.556.3-.424.678-.476 1.074-.328.404.14 2.524 1.19 2.964 1.41.44.22.73.326.836.51.104.186.104 1.072-.282 2.162z"/>
+              </svg>
+            </a>
+            <a href="mailto:hello@yourdomain.com" aria-label="Email">
+              <svg class="brand-ico" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="#4caf50" d="M45 16.2l-5 2.75-5 4.75L35 40h7c1.657 0 3-1.343 3-3V16.2z"/>
+                <path fill="#1e88e5" d="M3 16.2l3.614 1.71L13 23.7V40H6c-1.657 0-3-1.343-3-3V16.2z"/>
+                <path fill="#e53935" d="M35 11.2L24 19.45 13 11.2 12 17l1 6.7 11 8.25 11-8.25 1-6.7z"/>
+                <path fill="#c62828" d="M3 12.298V16.2l10 7.5V11.2L9.876 8.859C9.132 8.301 8.228 8 7.298 8h0C4.924 8 3 9.924 3 12.298z"/>
+                <path fill="#fbc02d" d="M45 12.298V16.2l-10 7.5V11.2l3.124-2.341C38.868 8.301 39.772 8 40.702 8h0C43.076 8 45 9.924 45 12.298z"/>
+              </svg>
+            </a>
           </div>
         </div>
 
