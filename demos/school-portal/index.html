@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Greenwood Academy — Student & Staff Portal</title>
+  <meta name="description" content="A modern school management portal: notices, attendance, timetable, results and more. Demo by Sudharsan Kumar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#111a2e; --panel-2:#16223c; --card:#13203a;
+      --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+      --text:#eef2f9; --dim:#9fb0cc; --faint:#6b7e9e;
+      --brand:#3b82f6; --brand-2:#22d3ee; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+      --grad:linear-gradient(120deg,#3b82f6,#22d3ee);
+      --radius:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.15}
+    a{color:inherit;text-decoration:none}
+    .msi{font-family:'Material Symbols Rounded';font-weight:normal;line-height:1;vertical-align:middle;display:inline-block}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+    .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+    /* demo banner */
+    .demo-banner{background:var(--grad);color:#04101f;font-size:.85rem;font-weight:600;text-align:center;padding:8px 14px}
+    .demo-banner a{text-decoration:underline}
+
+    /* nav */
+    header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+    .logo{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;font-size:1.12rem}
+    .logo .crest{width:36px;height:36px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#04101f}
+    .nav-links{display:flex;gap:26px;align-items:center}
+    .nav-links a.link{color:var(--dim);font-size:.93rem;font-weight:500}
+    .nav-links a.link:hover{color:var(--text)}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;padding:11px 20px;border-radius:10px;cursor:pointer;border:1px solid transparent;transition:.18s}
+    .btn-primary{background:var(--grad);color:#04101f}
+    .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+    .btn-ghost{background:rgba(255,255,255,.05);border-color:var(--line-2);color:var(--text)}
+    .btn-ghost:hover{background:rgba(255,255,255,.1)}
+    .menu-btn{display:none;background:none;border:0;color:var(--text);cursor:pointer}
+
+    /* hero */
+    .hero{position:relative;overflow:hidden;padding:70px 0 60px}
+    .hero::before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:#1d4ed8;filter:blur(150px);opacity:.25;top:-220px;right:-120px}
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+    .badge{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-2);background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);padding:6px 13px;border-radius:999px;margin-bottom:20px}
+    .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;margin-bottom:18px}
+    .hero p.lead{color:var(--dim);font-size:1.1rem;max-width:520px;margin-bottom:28px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-stats{display:flex;gap:30px;margin-top:34px;flex-wrap:wrap}
+    .hero-stats .s .n{font-family:'Space Grotesk';font-size:1.7rem;font-weight:700}
+    .hero-stats .s .l{color:var(--faint);font-size:.85rem}
+
+    /* login card */
+    .login-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px 28px;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+    .login-card h3{font-size:1.3rem;margin-bottom:4px}
+    .login-card .sub{color:var(--faint);font-size:.9rem;margin-bottom:22px}
+    .role-tabs{display:flex;gap:8px;margin-bottom:20px}
+    .role-tabs button{flex:1;padding:9px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--dim);font-size:.85rem;font-weight:600;cursor:pointer;transition:.15s}
+    .role-tabs button.active{background:var(--grad);color:#04101f;border-color:transparent}
+    .field{margin-bottom:14px}
+    .field label{display:block;font-size:.82rem;color:var(--dim);margin-bottom:6px}
+    .field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line-2);background:var(--bg);color:var(--text);font-size:.95rem;font-family:inherit}
+    .field input:focus{outline:none;border-color:var(--brand)}
+    .login-card .btn-primary{width:100%;justify-content:center;margin-top:6px}
+    .login-hint{margin-top:14px;font-size:.8rem;color:var(--faint);text-align:center;line-height:1.6}
+    .login-hint code{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:5px;color:var(--brand-2)}
+
+    /* sections */
+    section{position:relative}
+    .pad{padding:72px 0}
+    .sec-head{text-align:center;max-width:620px;margin:0 auto 46px}
+    .sec-head .badge{margin-bottom:14px}
+    .sec-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem);margin-bottom:12px}
+    .sec-head p{color:var(--dim)}
+
+    /* features */
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.2s}
+    .feat:hover{transform:translateY(-4px);border-color:var(--line-2)}
+    .feat .ic{width:46px;height:46px;border-radius:11px;background:rgba(59,130,246,.14);border:1px solid rgba(59,130,246,.3);display:grid;place-items:center;color:var(--brand-2);margin-bottom:16px}
+    .feat .ic .msi{font-size:1.5rem}
+    .feat h3{font-size:1.12rem;margin-bottom:8px}
+    .feat p{color:var(--dim);font-size:.92rem}
+
+    /* footer */
+    footer{border-top:1px solid var(--line);padding:40px 0;margin-top:30px}
+    .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;color:var(--faint);font-size:.88rem}
+
+    /* ===== Dashboard (hidden until login) ===== */
+    #dashboard{display:none}
+    .dash-layout{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+    .sidebar{background:var(--panel);border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:0;height:100vh;overflow-y:auto}
+    .sidebar .logo{margin:4px 8px 26px}
+    .side-nav{display:flex;flex-direction:column;gap:4px}
+    .side-nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:var(--dim);font-size:.93rem;font-weight:500;cursor:pointer;transition:.15s}
+    .side-nav a .msi{font-size:1.25rem}
+    .side-nav a:hover{background:rgba(255,255,255,.05);color:var(--text)}
+    .side-nav a.active{background:var(--grad);color:#04101f;font-weight:600}
+    .side-foot{margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
+
+    .dash-main{padding:0;overflow-x:hidden}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 30px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,18,32,.82);backdrop-filter:blur(12px);z-index:20}
+    .topbar .search{display:flex;align-items:center;gap:9px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 14px;flex:1;max-width:380px;color:var(--faint)}
+    .topbar .search input{background:none;border:0;color:var(--text);font-family:inherit;font-size:.9rem;width:100%}
+    .topbar .search input:focus{outline:none}
+    .topbar .right{display:flex;align-items:center;gap:14px}
+    .avatar{width:38px;height:38px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#04101f;font-weight:700;font-family:'Space Grotesk'}
+    .icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--dim);cursor:pointer;display:grid;place-items:center}
+    .icon-btn:hover{color:var(--text);background:rgba(255,255,255,.05)}
+
+    .dash-content{padding:28px 30px}
+    .page{display:none}
+    .page.active{display:block;animation:fade .3s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .page-title{font-size:1.6rem;margin-bottom:4px}
+    .page-sub{color:var(--faint);font-size:.92rem;margin-bottom:26px}
+
+    .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+    .stat .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+    .stat .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:#04101f}
+    .stat .n{font-family:'Space Grotesk';font-size:1.9rem;font-weight:700;line-height:1}
+    .stat .l{color:var(--faint);font-size:.85rem;margin-top:4px}
+    .stat .delta{font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:3px}
+    .delta.up{color:var(--good)} .delta.down{color:var(--bad)}
+
+    .grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+    .panel h3{font-size:1.1rem;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+    .panel .ph-sub{color:var(--faint);font-size:.84rem;margin-bottom:18px}
+    .tag{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px}
+    .tag.b{background:rgba(59,130,246,.15);color:#7cb0ff}
+    .tag.g{background:rgba(34,197,94,.15);color:#5be08c}
+    .tag.w{background:rgba(245,158,11,.15);color:#f5c069}
+    .tag.r{background:rgba(239,68,68,.15);color:#ff8a8a}
+
+    table{width:100%;border-collapse:collapse;font-size:.9rem}
+    th{text-align:left;color:var(--faint);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid var(--line)}
+    td{padding:12px;border-bottom:1px solid var(--line);color:var(--dim)}
+    tr:last-child td{border-bottom:0}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    td .who{display:flex;align-items:center;gap:10px}
+    td .mini{width:30px;height:30px;border-radius:50%;background:var(--panel-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--brand-2)}
+
+    .notice{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
+    .notice:last-child{border-bottom:0}
+    .notice .dot{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:grid;place-items:center;color:#04101f}
+    .notice .b{font-weight:600;font-size:.92rem;color:var(--text)}
+    .notice .m{color:var(--faint);font-size:.83rem}
+
+    .timetable{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .tt-col h4{font-size:.82rem;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;text-align:center;padding-bottom:10px}
+    .tt-cell{background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:11px;margin-bottom:8px;font-size:.82rem}
+    .tt-cell .s{font-weight:600;color:var(--text)} .tt-cell .t{color:var(--faint);font-size:.75rem}
+
+    .att-bar{height:9px;border-radius:999px;background:var(--panel-2);overflow:hidden;margin-top:7px}
+    .att-bar i{display:block;height:100%;border-radius:999px;background:var(--grad)}
+
+    .progress-ring{display:flex;align-items:center;gap:18px}
+    .ring{width:96px;height:96px;flex-shrink:0}
+
+    .results-grid{display:flex;flex-direction:column;gap:14px}
+    .res-item{display:flex;align-items:center;gap:14px}
+    .res-item .nm{width:120px;font-size:.9rem;color:var(--text);font-weight:500}
+    .res-item .bar{flex:1;height:10px;border-radius:999px;background:var(--panel-2);overflow:hidden}
+    .res-item .bar i{display:block;height:100%;background:var(--grad)}
+    .res-item .pc{width:46px;text-align:right;font-weight:600;font-size:.9rem}
+
+    .empty{color:var(--faint);text-align:center;padding:30px;font-size:.9rem}
+
+    @media(max-width:920px){
+      .hero-grid,.grid-2,.feat-grid,.stat-row{grid-template-columns:1fr}
+      .feat-grid{gap:14px}
+      .timetable{grid-template-columns:repeat(2,1fr);overflow-x:auto}
+    }
+    @media(max-width:680px){
+      .nav-links{display:none}.menu-btn{display:block}
+      .dash-layout{grid-template-columns:1fr}
+      .sidebar{position:fixed;left:-260px;z-index:60;transition:.25s;width:248px}
+      .sidebar.open{left:0}
+      .stat-row{grid-template-columns:repeat(2,1fr)}
+      .hamburger{display:grid!important}
+    }
+    .hamburger{display:none}
+  </style>
+</head>
+<body>
+
+  <!-- ============ LANDING (public) ============ -->
+  <div id="landing">
+    <div class="demo-banner">
+      ⓘ This is a <strong>demo/POC</strong> built by Sudharsan Kumar — sample data only. &nbsp;
+      <a href="../../index.html">← Back to portfolio</a>
+    </div>
+
+    <header>
+      <div class="wrap nav">
+        <a href="#" class="logo"><span class="crest"><span class="msi">school</span></span> Greenwood Academy</a>
+        <nav class="nav-links">
+          <a class="link" href="#features">Features</a>
+          <a class="link" href="#about">About</a>
+          <a class="link" href="#login">Portal Login</a>
+          <a class="btn btn-primary" href="#login">Open Portal</a>
+        </nav>
+        <button class="menu-btn" id="menuBtn"><span class="msi">menu</span></button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="badge"><span class="msi" style="font-size:1rem">verified</span> School Management Portal</span>
+          <h1>One portal for your whole <span class="grad">campus</span>.</h1>
+          <p class="lead">Attendance, timetables, notices, results and fee tracking — for students, parents, and staff. Fast, secure, and beautifully simple.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#login"><span class="msi">login</span> Open the Portal</a>
+            <a class="btn btn-ghost" href="#features">Explore features</a>
+          </div>
+          <div class="hero-stats">
+            <div class="s"><div class="n grad">2,400+</div><div class="l">Students managed</div></div>
+            <div class="s"><div class="n grad">98%</div><div class="l">Attendance accuracy</div></div>
+            <div class="s"><div class="n grad">120+</div><div class="l">Staff members</div></div>
+          </div>
+        </div>
+
+        <div class="login-card" id="login">
+          <h3>Portal Login</h3>
+          <div class="sub">Sign in to your dashboard</div>
+          <div class="role-tabs" id="roleTabs">
+            <button class="active" data-role="Student">Student</button>
+            <button data-role="Parent">Parent</button>
+            <button data-role="Staff">Staff</button>
+          </div>
+          <form id="loginForm">
+            <div class="field">
+              <label>Username / Roll No.</label>
+              <input type="text" id="username" placeholder="e.g. STU-2041" value="STU-2041" />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="password" placeholder="••••••••" value="demo1234" />
+            </div>
+            <button type="submit" class="btn btn-primary"><span class="msi">login</span> Sign in</button>
+          </form>
+          <div class="login-hint">
+            Demo login — just click <strong>Sign in</strong>.<br>
+            (any username/password works · <code>STU-2041 / demo1234</code> prefilled)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pad" id="features">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="badge">Everything in one place</span>
+          <h2>Built for students, parents &amp; staff</h2>
+          <p>A complete toolkit that replaces scattered spreadsheets, WhatsApp groups, and paper notices.</p>
+        </div>
+        <div class="feat-grid">
+          <div class="feat"><div class="ic"><span class="msi">fact_check</span></div><h3>Smart Attendance</h3><p>Mark and track daily attendance with instant absence alerts to parents.</p></div>
+          <div class="feat"><div class="ic"><span class="msi">calendar_month</span></div><h3>Live Timetable</h3><p>Class schedules, exam dates and events — always up to date, on any device.</p></div>
+          <div class="feat"><div class="ic"><span class="msi">campaign</span></div><h3>Notices &amp; Circulars</h3><p>Broadcast announcements to the whole school or a single class in seconds.</p></div>
+          <div class="feat"><div class="ic"><span class="msi">grade</span></div><h3>Results &amp; Report Cards</h3><p>Publish exam results with subject-wise breakdowns and progress tracking.</p></div>
+          <div class="feat"><div class="ic"><span class="msi">payments</span></div><h3>Fee Management</h3><p>Track dues, send reminders, and let parents pay online — no more cash queues.</p></div>
+          <div class="feat"><div class="ic"><span class="msi">support_agent</span></div><h3>Parent Connect</h3><p>Direct messaging between teachers and parents, with full history.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pad" id="about" style="padding-top:0">
+      <div class="wrap">
+        <div class="login-card" style="text-align:center;max-width:760px;margin:0 auto">
+          <span class="badge" style="margin-bottom:14px">About this demo</span>
+          <h2 style="font-size:1.7rem;margin-bottom:12px">A real, working sample — not a mockup</h2>
+          <p style="color:var(--dim);max-width:560px;margin:0 auto 22px">
+            This portal is a live proof-of-concept built by <strong>Sudharsan Kumar</strong>, AI Engineer &amp; freelance developer.
+            Click into the dashboard to explore attendance, timetables, notices and results with realistic sample data.
+            A production version connects to a real database, authentication, and payments.
+          </p>
+          <a class="btn btn-primary" href="../../index.html"><span class="msi">arrow_back</span> Hire me for your project</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap foot">
+        <span>© <span id="yr"></span> Greenwood Academy (demo) · Built by Sudharsan Kumar</span>
+        <span>Sample data · No real student information</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============ DASHBOARD (after login) ============ -->
+  <div id="dashboard">
+    <div class="dash-layout">
+      <aside class="sidebar" id="sidebar">
+        <a href="#" class="logo" onclick="return false"><span class="crest"><span class="msi">school</span></span> Greenwood</a>
+        <nav class="side-nav" id="sideNav">
+          <a class="active" data-page="overview"><span class="msi">dashboard</span> Overview</a>
+          <a data-page="attendance"><span class="msi">fact_check</span> Attendance</a>
+          <a data-page="timetable"><span class="msi">calendar_month</span> Timetable</a>
+          <a data-page="notices"><span class="msi">campaign</span> Notices</a>
+          <a data-page="results"><span class="msi">grade</span> Results</a>
+          <a data-page="fees"><span class="msi">payments</span> Fees</a>
+        </nav>
+        <div class="side-foot side-nav">
+          <a onclick="logout()"><span class="msi">logout</span> Sign out</a>
+        </div>
+      </aside>
+
+      <main class="dash-main">
+        <div class="topbar">
+          <button class="icon-btn hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><span class="msi">menu</span></button>
+          <div class="search"><span class="msi">search</span><input placeholder="Search students, classes, notices…" /></div>
+          <div class="right">
+            <button class="icon-btn"><span class="msi">notifications</span></button>
+            <button class="icon-btn"><span class="msi">dark_mode</span></button>
+            <div class="avatar" id="userAvatar">A</div>
+          </div>
+        </div>
+
+        <div class="dash-content">
+          <!-- OVERVIEW -->
+          <div class="page active" id="page-overview">
+            <h1 class="page-title">Welcome back, <span id="welcomeName">Aanya</span> 👋</h1>
+            <p class="page-sub" id="welcomeSub">Here's what's happening at Greenwood Academy today.</p>
+
+            <div class="stat-row">
+              <div class="stat"><div class="top"><div class="ic" style="background:var(--grad)"><span class="msi">fact_check</span></div><span class="delta up"><span class="msi" style="font-size:1rem">trending_up</span>2%</span></div><div class="n">94%</div><div class="l">My attendance</div></div>
+              <div class="stat"><div class="top"><div class="ic" style="background:linear-gradient(120deg,#22c55e,#86efac)"><span class="msi">grade</span></div><span class="delta up"><span class="msi" style="font-size:1rem">trending_up</span>5%</span></div><div class="n">A−</div><div class="l">Overall grade</div></div>
+              <div class="stat"><div class="top"><div class="ic" style="background:linear-gradient(120deg,#f59e0b,#fcd34d)"><span class="msi">assignment</span></div></div><div class="n">3</div><div class="l">Assignments due</div></div>
+              <div class="stat"><div class="top"><div class="ic" style="background:linear-gradient(120deg,#ef4444,#fca5a5)"><span class="msi">payments</span></div></div><div class="n">₹0</div><div class="l">Pending fees</div></div>
+            </div>
+
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Today's Classes <span class="tag b">Wednesday</span></h3>
+                <div class="ph-sub">Your schedule for today</div>
+                <table>
+                  <thead><tr><th>Time</th><th>Subject</th><th>Teacher</th><th>Room</th></tr></thead>
+                  <tbody>
+                    <tr><td>09:00</td><td style="color:var(--text)">Mathematics</td><td>Mr. Rao</td><td>B-12</td></tr>
+                    <tr><td>10:00</td><td style="color:var(--text)">Physics</td><td>Ms. Iyer</td><td>Lab-2</td></tr>
+                    <tr><td>11:15</td><td style="color:var(--text)">English</td><td>Mrs. Thomas</td><td>A-04</td></tr>
+                    <tr><td>12:15</td><td style="color:var(--text)">Computer Science</td><td>Mr. Khan</td><td>Lab-5</td></tr>
+                    <tr><td>02:00</td><td style="color:var(--text)">Physical Education</td><td>Coach Singh</td><td>Ground</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="panel">
+                <h3>Recent Notices</h3>
+                <div class="ph-sub">Latest from the school</div>
+                <div class="notice"><div class="dot" style="background:var(--grad)"><span class="msi">science</span></div><div><div class="b">Science Exhibition — Friday</div><div class="m">Submit projects to the lab by Thursday 4 PM. · 2h ago</div></div></div>
+                <div class="notice"><div class="dot" style="background:linear-gradient(120deg,#f59e0b,#fcd34d)"><span class="msi">event</span></div><div><div class="b">PTA Meeting next week</div><div class="m">Saturday 10 AM in the main auditorium. · 1d ago</div></div></div>
+                <div class="notice"><div class="dot" style="background:linear-gradient(120deg,#22c55e,#86efac)"><span class="msi">sports_soccer</span></div><div><div class="b">Inter-house Sports Day</div><div class="m">Registrations now open via the portal. · 2d ago</div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ATTENDANCE -->
+          <div class="page" id="page-attendance">
+            <h1 class="page-title">Attendance</h1>
+            <p class="page-sub">Your attendance record for this academic term.</p>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Subject-wise Attendance</h3>
+                <div class="ph-sub">Term: Apr 2026 – present</div>
+                <div class="results-grid" id="attList"></div>
+              </div>
+              <div class="panel">
+                <h3>Monthly Summary</h3>
+                <div class="ph-sub">Present days per month</div>
+                <table>
+                  <thead><tr><th>Month</th><th>Present</th><th>Total</th><th>%</th></tr></thead>
+                  <tbody>
+                    <tr><td style="color:var(--text)">April</td><td>21</td><td>22</td><td><span class="tag g">95%</span></td></tr>
+                    <tr><td style="color:var(--text)">May</td><td>19</td><td>21</td><td><span class="tag g">90%</span></td></tr>
+                    <tr><td style="color:var(--text)">June</td><td>17</td><td>20</td><td><span class="tag w">85%</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIMETABLE -->
+          <div class="page" id="page-timetable">
+            <h1 class="page-title">Weekly Timetable</h1>
+            <p class="page-sub">Class IX-A · Academic year 2026–27</p>
+            <div class="panel">
+              <div class="timetable" id="ttGrid"></div>
+            </div>
+          </div>
+
+          <!-- NOTICES -->
+          <div class="page" id="page-notices">
+            <h1 class="page-title">Notices &amp; Circulars</h1>
+            <p class="page-sub">All school announcements in one feed.</p>
+            <div class="panel" id="noticesFull"></div>
+          </div>
+
+          <!-- RESULTS -->
+          <div class="page" id="page-results">
+            <h1 class="page-title">Exam Results</h1>
+            <p class="page-sub">Mid-term examination · 2026–27</p>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Subject Scores</h3>
+                <div class="ph-sub">Out of 100</div>
+                <div class="results-grid" id="resList"></div>
+              </div>
+              <div class="panel">
+                <h3>Overall Performance</h3>
+                <div class="ph-sub">Class rank &amp; percentage</div>
+                <div class="progress-ring">
+                  <svg class="ring" viewBox="0 0 36 36">
+                    <path d="M18 2.5a15.5 15.5 0 1 1 0 31 15.5 15.5 0 0 1 0-31" fill="none" stroke="var(--panel-2)" stroke-width="3"/>
+                    <path d="M18 2.5a15.5 15.5 0 1 1 0 31 15.5 15.5 0 0 1 0-31" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-dasharray="87 100"/>
+                    <defs><linearGradient id="g"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+                  </svg>
+                  <div>
+                    <div style="font-family:'Space Grotesk';font-size:2rem;font-weight:700">87%</div>
+                    <div style="color:var(--faint);font-size:.88rem">Aggregate score</div>
+                    <div style="margin-top:8px"><span class="tag b">Class Rank: 4 / 38</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FEES -->
+          <div class="page" id="page-fees">
+            <h1 class="page-title">Fee Management</h1>
+            <p class="page-sub">Term fees, payment history and dues.</p>
+            <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
+              <div class="stat"><div class="top"><div class="ic" style="background:linear-gradient(120deg,#22c55e,#86efac)"><span class="msi">check_circle</span></div></div><div class="n">₹45,000</div><div class="l">Paid this year</div></div>
+              <div class="stat"><div class="top"><div class="ic" style="background:linear-gradient(120deg,#f59e0b,#fcd34d)"><span class="msi">schedule</span></div></div><div class="n">₹0</div><div class="l">Pending</div></div>
+              <div class="stat"><div class="top"><div class="ic" style="background:var(--grad)"><span class="msi">receipt_long</span></div></div><div class="n">3</div><div class="l">Receipts available</div></div>
+            </div>
+            <div class="panel">
+              <h3>Payment History</h3>
+              <div class="ph-sub">All transactions</div>
+              <table>
+                <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Receipt</th></tr></thead>
+                <tbody>
+                  <tr><td>05 Apr 2026</td><td style="color:var(--text)">Term 1 Tuition</td><td>₹15,000</td><td><span class="tag g">Paid</span></td><td><a style="color:var(--brand-2)" href="#" onclick="return false">Download</a></td></tr>
+                  <tr><td>05 Apr 2026</td><td style="color:var(--text)">Annual Charges</td><td>₹12,000</td><td><span class="tag g">Paid</span></td><td><a style="color:var(--brand-2)" href="#" onclick="return false">Download</a></td></tr>
+                  <tr><td>10 Jun 2026</td><td style="color:var(--text)">Term 2 Tuition</td><td>₹18,000</td><td><span class="tag g">Paid</span></td><td><a style="color:var(--brand-2)" href="#" onclick="return false">Download</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      document.querySelector('.nav-links').style.display = 'flex';
+    });
+
+    // role tabs
+    let role = 'Student';
+    document.getElementById('roleTabs').addEventListener('click', e => {
+      const b = e.target.closest('button'); if(!b) return;
+      document.querySelectorAll('#roleTabs button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); role = b.dataset.role;
+    });
+
+    // login -> show dashboard
+    const names = { Student:'Aanya', Parent:'Mr. Sharma', Staff:'Ms. Iyer' };
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const nm = names[role] || 'Aanya';
+      document.getElementById('welcomeName').textContent = nm;
+      document.getElementById('welcomeSub').textContent =
+        role === 'Staff' ? "Here's your teaching dashboard for today."
+        : role === 'Parent' ? "Here's your child's progress at a glance."
+        : "Here's what's happening at Greenwood Academy today.";
+      document.getElementById('userAvatar').textContent = nm[0];
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      window.scrollTo(0,0);
+    });
+
+    function logout(){
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('landing').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+
+    // sidebar page switching
+    document.getElementById('sideNav').addEventListener('click', e => {
+      const a = e.target.closest('a'); if(!a || !a.dataset.page) return;
+      document.querySelectorAll('#sideNav a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active');
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById('page-'+a.dataset.page).classList.add('active');
+      document.getElementById('sidebar').classList.remove('open');
+    });
+
+    // ---- render dynamic data ----
+    const attendance = [
+      ['Mathematics',96],['Physics',91],['English',98],['Computer Science',94],['Chemistry',88],['Physical Ed.',100]
+    ];
+    document.getElementById('attList').innerHTML = attendance.map(([s,p])=>`
+      <div class="res-item"><div class="nm">${s}</div><div class="bar"><i style="width:${p}%"></i></div><div class="pc">${p}%</div></div>`).join('');
+
+    const results = [
+      ['Mathematics',92],['Physics',85],['English',88],['Computer Science',95],['Chemistry',79],['Social Science',83]
+    ];
+    document.getElementById('resList').innerHTML = results.map(([s,p])=>`
+      <div class="res-item"><div class="nm">${s}</div><div class="bar"><i style="width:${p}%"></i></div><div class="pc">${p}</div></div>`).join('');
+
+    const days = ['Mon','Tue','Wed','Thu','Fri'];
+    const periods = {
+      Mon:[['Maths','9:00'],['English','10:00'],['Bio','11:15'],['History','12:15'],['Art','2:00']],
+      Tue:[['Physics','9:00'],['Maths','10:00'],['CS','11:15'],['Chem','12:15'],['Music','2:00']],
+      Wed:[['Maths','9:00'],['Physics','10:00'],['English','11:15'],['CS','12:15'],['PE','2:00']],
+      Thu:[['Chem','9:00'],['Bio','10:00'],['Maths','11:15'],['English','12:15'],['Library','2:00']],
+      Fri:[['CS','9:00'],['Physics','10:00'],['History','11:15'],['Maths','12:15'],['Sports','2:00']],
+    };
+    document.getElementById('ttGrid').innerHTML = days.map(d=>`
+      <div class="tt-col"><h4>${d}</h4>${periods[d].map(([s,t])=>`
+        <div class="tt-cell"><div class="s">${s}</div><div class="t">${t}</div></div>`).join('')}</div>`).join('');
+
+    const allNotices = [
+      ['science','Science Exhibition — Friday','Submit your projects to the lab by Thursday 4 PM. Judging starts 10 AM.','2 hours ago','var(--grad)'],
+      ['event','PTA Meeting next week','Parent-teacher meeting on Saturday 10 AM in the main auditorium.','1 day ago','linear-gradient(120deg,#f59e0b,#fcd34d)'],
+      ['sports_soccer','Inter-house Sports Day','Registrations open via the portal. Closes this Friday.','2 days ago','linear-gradient(120deg,#22c55e,#86efac)'],
+      ['menu_book','Library books due','Return borrowed books before the term-end to avoid fines.','3 days ago','linear-gradient(120deg,#a855f7,#d8b4fe)'],
+      ['vaccines','Health checkup camp','Free dental & eye checkup for classes VI–X on Monday.','5 days ago','linear-gradient(120deg,#ef4444,#fca5a5)'],
+    ];
+    document.getElementById('noticesFull').innerHTML = allNotices.map(([ic,b,m,t,col])=>`
+      <div class="notice"><div class="dot" style="background:${col}"><span class="msi">${ic}</span></div>
+        <div><div class="b">${b}</div><div class="m">${m} · ${t}</div></div></div>`).join('');
+  </script>
+</body>
+</html>

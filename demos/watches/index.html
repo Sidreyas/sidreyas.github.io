@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumière — The Finest Luxury Watches</title>
+  <meta name="description" content="Elegance and precision — the finest luxury watches. Haute horlogerie, tourbillon and diamond timepieces. Demo store." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300,0,0&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="demo-banner">
+    Demo / POC store built by Sudharsan Kumar — fictional brand, sample images. &nbsp;
+    <a href="../../index.html">← Back to portfolio</a>
+  </div>
+
+  <!-- nav -->
+  <header id="header">
+    <div class="wrap nav">
+      <a href="#" class="brand">LUM<b>I</b>ÈRE</a>
+      <nav class="nav-links" id="navLinks">
+        <a class="link" href="#coveted">Watches</a>
+        <a class="link" href="#categories">Collections</a>
+        <a class="link" href="#feature">Craftsmanship</a>
+        <a class="link" href="#contact">Maison</a>
+      </nav>
+      <div class="nav-ic">
+        <span class="msi">search</span>
+        <span class="msi">person</span>
+        <span class="cart" id="cartBtn"><span class="msi">shopping_bag</span><span class="badge" id="cartBadge">0</span></span>
+        <button class="menu-btn" id="menuBtn"><span class="msi">menu</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- cart drawer -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag">
+    <div class="cart-head">
+      <h3>Your Bag</h3>
+      <button class="cart-close" id="cartClose"><span class="msi">close</span></button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span>Subtotal</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn btn-gold" id="checkoutBtn" style="width:100%;justify-content:center">Checkout</button>
+      <p class="cart-note">Free shipping &amp; 2-year warranty on every order.</p>
+    </div>
+  </aside>
+
+  <!-- quick-view modal -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose"><span class="msi">close</span></button>
+      <div class="modal-img"><img id="mvImg" src="" alt=""></div>
+      <div class="modal-info">
+        <div class="cat" id="mvCat"></div>
+        <h2 id="mvName"></h2>
+        <div class="rating" id="mvRating"></div>
+        <div class="mv-price" id="mvPrice"></div>
+        <p id="mvDesc"></p>
+        <ul class="specs" id="mvSpecs"></ul>
+        <div class="mv-actions">
+          <div class="qty"><button id="mvMinus">−</button><span id="mvQty">1</span><button id="mvPlus">+</button></div>
+          <button class="btn btn-gold" id="mvAdd"><span class="msi">shopping_bag</span> Add to bag</button>
+        </div>
+        <div class="mv-trust">
+          <span><span class="msi">local_shipping</span> Free shipping</span>
+          <span><span class="msi">verified</span> 2-yr warranty</span>
+          <span><span class="msi">replay</span> 30-day returns</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- hero -->
+  <section class="hero" id="home">
+    <!-- colour panels (one per watch) that slide in from the right -->
+    <div class="hero-bg" id="heroBg">
+      <div class="panel active" style="background:radial-gradient(120% 120% at 70% 30%,#2a2a2e,#0c0c0d)"></div>
+      <div class="panel" style="background:radial-gradient(120% 120% at 70% 30%,#1d2433,#0a0d14)"></div>
+      <div class="panel" style="background:radial-gradient(120% 120% at 70% 30%,#2e2418,#100c07)"></div>
+      <div class="panel" style="background:radial-gradient(120% 120% at 70% 30%,#241d24,#0e0a0e)"></div>
+    </div>
+
+    <!-- giant looping watch name behind the product -->
+    <div class="hero-marquee"><div class="track" id="heroTrack"></div></div>
+
+    <!-- centered product -->
+    <div class="hero-stage">
+      <div class="hero-card" id="heroCard">
+        <div class="prod-slide active"><img src="img/hero.jpg" alt="L'Aviateur"></div>
+        <div class="prod-slide"><img src="img/w05.jpg" alt="L'Essence"></div>
+        <div class="prod-slide"><img src="img/w03.jpg" alt="Le Noir"></div>
+        <div class="prod-slide"><img src="img/detail.jpg" alt="Le Squelette"></div>
+        <div class="pad-strip"></div>
+      </div>
+      <div class="h-name"><span class="swap" id="hName">L'Aviateur</span></div>
+      <div class="tagline">Elegance and Precision — <em>The Finest Luxury Watches</em></div>
+      <div class="h-price" id="hPrice">$9,000</div>
+      <div class="cta"><a class="btn btn-gold" href="#coveted">Shop now</a></div>
+    </div>
+
+    <button class="hero-arrow prev" id="heroPrev"><span class="msi">chevron_left</span></button>
+    <button class="hero-arrow next" id="heroNext"><span class="msi">chevron_right</span></button>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- product catalog (featured 4) -->
+  <section class="pad" id="coveted">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">The collection</span>
+        <h2>The Most Coveted Luxury Watches</h2>
+        <p>A glimpse of our most sought-after pieces. Explore the full collection for all ten.</p>
+      </div>
+      <div class="prod-grid" id="prodGrid"><!-- featured products injected by JS --></div>
+      <div class="view-all"><a class="btn btn-gold" href="collections.html">More watches <span class="msi">arrow_forward</span></a></div>
+    </div>
+  </section>
+
+  <!-- feature split -->
+  <section class="feature" id="feature">
+    <div class="split">
+      <div class="imgcol reveal"><img src="img/detail.jpg" alt="Watch movement detail" /></div>
+      <div class="txtcol reveal">
+        <span class="eyebrow">Craftsmanship</span>
+        <h2>Precision movement, perfected</h2>
+        <p>Every Lumière timepiece houses a precise, reliable movement with advanced complications — engineered and assembled by master horologists, refined over generations.</p>
+        <div><a class="btn btn-gold" href="#coveted">Explore the craft</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- three feature blocks -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="feats">
+        <div class="feat reveal"><div class="ic"><span class="msi">settings</span></div><h3>Precision Movement</h3><p>Precise, reliable movements with advanced features and complications.</p></div>
+        <div class="feat reveal"><div class="ic"><span class="msi">diamond</span></div><h3>High-Quality Materials</h3><p>Sapphire crystal, surgical-grade steel, and ethically sourced gold and gems.</p></div>
+        <div class="feat reveal"><div class="ic"><span class="msi">visibility</span></div><h3>Attention to Detail</h3><p>Hand-finished to perfection — every facet, bevel, and engraving by master artisans.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- shop by category -->
+  <section class="pad" id="categories" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Collections</span>
+        <h2>Shop Our Selection by Category</h2>
+        <p>Three distinct expressions of horological art, for every kind of connoisseur.</p>
+      </div>
+      <div class="cats">
+        <a class="catcard reveal" href="collections.html?cat=Automatic"><img src="img/w01.jpg" alt="Haute horlogerie"><div class="ov"><h3>Haute Horlogerie</h3><span class="lk">Explore <span class="msi">arrow_forward</span></span></div></a>
+        <a class="catcard reveal" href="collections.html?cat=Skeleton"><img src="img/detail.jpg" alt="Skeleton watches"><div class="ov"><h3>Skeleton &amp; Tourbillon</h3><span class="lk">Explore <span class="msi">arrow_forward</span></span></div></a>
+        <a class="catcard reveal" href="collections.html?cat=Classic"><img src="img/w02.jpg" alt="Classic watches"><div class="ov"><h3>Classic &amp; Dress</h3><span class="lk">Explore <span class="msi">arrow_forward</span></span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- testimonial -->
+  <section class="pad testi">
+    <div class="wrap reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Lumière doesn't just make watches — they craft heirlooms. The detail, the weight, the way it catches the light. It's the finest timepiece I've ever owned."</blockquote>
+      <div class="by"><strong>Sarah Smith</strong><span>CEO, Juicy Watches</span></div>
+    </div>
+  </section>
+
+  <!-- big cta band -->
+  <section class="band" id="contact">
+    <img src="img/hero.jpg" alt="Luxury watch" />
+    <div class="scrim"></div>
+    <div class="in reveal">
+      <span class="eyebrow" style="color:var(--gold-2)">The art of time</span>
+      <h2 style="margin-top:14px">Upgrade Your Timepiece Collection Today</h2>
+      <p>Book a private appointment at the Maison or shop the collection online.</p>
+      <a class="btn btn-gold" href="#coveted">Shop the collection</a>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="wrap">
+      <div class="news reveal">
+        <div>
+          <h3>Join the Maison</h3>
+          <p>Be the first to discover new releases, private events, and the world of Lumière.</p>
+        </div>
+        <form onsubmit="event.preventDefault();this.querySelector('input').value='';this.querySelector('button').textContent='Subscribed ✓'">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#" class="brand">LUM<b style="color:var(--gold)">I</b>ÈRE</a>
+          <p>Handcrafted luxury timepieces since 1898. Elegance and precision, in every second.</p>
+          <div class="socials" style="margin-top:18px">
+            <a href="#"><span class="msi">photo_camera</span></a>
+            <a href="#"><span class="msi">facebook</span></a>
+            <a href="#"><span class="msi">smart_display</span></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h5>Watches</h5>
+          <a href="#coveted">New Arrivals</a>
+          <a href="#categories">Haute Horlogerie</a>
+          <a href="#categories">Tourbillon</a>
+          <a href="#categories">Diamond</a>
+        </div>
+        <div class="foot-col">
+          <h5>Maison</h5>
+          <a href="#feature">Craftsmanship</a>
+          <a href="#contact">Our Story</a>
+          <a href="#">Boutiques</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="foot-col foot-contact">
+          <h5>Contact</h5>
+          <div><span class="msi">location_on</span> 1 Place Vendôme, City</div>
+          <div><span class="msi">call</span> +1 (555) 100-1898</div>
+          <div><span class="msi">mail</span> concierge@lumiere.demo</div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="yr"></span> Lumière (demo store) · Built by Sudharsan Kumar</span>
+        <span>Fictional brand · Sample images from Pexels</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const mb=document.getElementById('menuBtn'), nl=document.getElementById('navLinks');
+    mb.addEventListener('click',()=>nl.classList.toggle('open'));
+    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
+    // header border on scroll
+    const hd=document.getElementById('header');
+    addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>20));
+    // ===== hero carousel: each watch has a colour panel (slides in from
+    // right), a product image, a name (drives the looping marquee) & price =====
+    (function(){
+      const watches=[
+        {name:"L'Aviateur", price:"$9,000"},
+        {name:"L'Essence",  price:"$5,200"},
+        {name:"Le Noir",    price:"$7,400"},
+        {name:"Le Squelette",price:"$12,800"},
+      ];
+      const panels=Array.from(document.querySelectorAll('#heroBg .panel'));
+      const prods=Array.from(document.querySelectorAll('#heroCard .prod-slide'));
+      const nameEl=document.getElementById('hName');
+      const priceEl=document.getElementById('hPrice');
+      const track=document.getElementById('heroTrack');
+      const dotsWrap=document.getElementById('heroDots');
+      let i=0, timer;
+
+      // build dots
+      watches.forEach((w,n)=>{const b=document.createElement('button');if(n===0)b.className='on';b.onclick=()=>{go(n);restart();};dotsWrap.appendChild(b);});
+      const dots=Array.from(dotsWrap.children);
+
+      // build the looping name marquee (duplicated for seamless loop)
+      function setMarquee(name){
+        const unit=`<span>${name}</span><span>·</span>`;
+        track.innerHTML=unit.repeat(8);
+      }
+      setMarquee(watches[0].name);
+
+      function go(n){
+        const prev=i; i=(n+watches.length)%watches.length;
+        // colour panels: outgoing slides left, incoming slides in from right
+        panels.forEach((p,k)=>{
+          p.classList.remove('active','past');
+          if(k===i)p.classList.add('active');
+          else if(k===prev)p.classList.add('past');
+        });
+        prods[prev].classList.remove('active'); prods[i].classList.add('active');
+        // swap name + price with a quick fade
+        nameEl.style.opacity=0; nameEl.style.transform='translateY(8px)';
+        priceEl.style.opacity=0;
+        setTimeout(()=>{
+          nameEl.textContent=watches[i].name; priceEl.textContent=watches[i].price;
+          setMarquee(watches[i].name);
+          nameEl.style.opacity=1; nameEl.style.transform='none'; priceEl.style.opacity=1;
+        },380);
+        dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+      }
+      function next(){go(i+1)} function prev(){go(i-1)}
+      function restart(){clearInterval(timer);timer=setInterval(next,4500);}
+      document.getElementById('heroNext').onclick=()=>{next();restart();};
+      document.getElementById('heroPrev').onclick=()=>{prev();restart();};
+      priceEl.style.transition='opacity .4s ease';
+      restart();
+    })();
+
+    // ---- featured catalog: show only the first 4 watches on the homepage ----
+    const grid=document.getElementById('prodGrid');
+    grid.innerHTML=PRODUCTS.slice(0,4).map(Shop.cardHTML).join('');
+    Shop.initGrid(grid);
+    Shop.initCartAndModal();
+
+    // reveal on scroll
+    const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io.observe(el);});
+  </script>
+</body>
+</html>

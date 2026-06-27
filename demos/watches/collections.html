@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Collections — Lumière Luxury Watches</title>
+  <meta name="description" content="Browse the full Lumière collection — chronograph, automatic, skeleton, classic and ladies timepieces." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300,0,0&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* collections-page header banner */
+    .page-hero{padding:120px 0 50px;text-align:center;border-bottom:1px solid var(--line)}
+    .page-hero .eyebrow{display:block;margin-bottom:14px}
+    .page-hero h1{font-size:clamp(2.4rem,5vw,3.6rem);margin-bottom:12px}
+    .page-hero p{color:var(--dim);max-width:520px;margin:0 auto}
+    .crumbs{font-size:.8rem;letter-spacing:.08em;color:var(--faint);margin-bottom:24px}
+    .crumbs a:hover{color:var(--gold)}
+    /* collections header is solid (no transparent hero behind it) */
+    header.solid{background:rgba(12,12,13,.95);border-bottom:1px solid var(--line)}
+    .count{color:var(--faint);font-size:.85rem;text-align:center;margin-bottom:30px;letter-spacing:.05em}
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    Demo / POC store built by Sudharsan Kumar — fictional brand, sample images. &nbsp;
+    <a href="../../index.html">← Back to portfolio</a>
+  </div>
+
+  <!-- nav -->
+  <header id="header" class="solid">
+    <div class="wrap nav">
+      <a href="index.html" class="brand">LUM<b>I</b>ÈRE</a>
+      <nav class="nav-links" id="navLinks">
+        <a class="link" href="index.html#coveted">Watches</a>
+        <a class="link" href="collections.html">Collections</a>
+        <a class="link" href="index.html#feature">Craftsmanship</a>
+        <a class="link" href="index.html#contact">Maison</a>
+      </nav>
+      <div class="nav-ic">
+        <span class="msi">search</span>
+        <span class="msi">person</span>
+        <span class="cart" id="cartBtn"><span class="msi">shopping_bag</span><span class="badge" id="cartBadge">0</span></span>
+        <button class="menu-btn" id="menuBtn"><span class="msi">menu</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- cart drawer -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag">
+    <div class="cart-head">
+      <h3>Your Bag</h3>
+      <button class="cart-close" id="cartClose"><span class="msi">close</span></button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span>Subtotal</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn btn-gold" id="checkoutBtn" style="width:100%;justify-content:center">Checkout</button>
+      <p class="cart-note">Free shipping &amp; 2-year warranty on every order.</p>
+    </div>
+  </aside>
+
+  <!-- quick-view modal -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose"><span class="msi">close</span></button>
+      <div class="modal-img"><img id="mvImg" src="" alt=""></div>
+      <div class="modal-info">
+        <div class="cat" id="mvCat"></div>
+        <h2 id="mvName"></h2>
+        <div class="rating" id="mvRating"></div>
+        <div class="mv-price" id="mvPrice"></div>
+        <p id="mvDesc"></p>
+        <ul class="specs" id="mvSpecs"></ul>
+        <div class="mv-actions">
+          <div class="qty"><button id="mvMinus">−</button><span id="mvQty">1</span><button id="mvPlus">+</button></div>
+          <button class="btn btn-gold" id="mvAdd"><span class="msi">shopping_bag</span> Add to bag</button>
+        </div>
+        <div class="mv-trust">
+          <span><span class="msi">local_shipping</span> Free shipping</span>
+          <span><span class="msi">verified</span> 2-yr warranty</span>
+          <span><span class="msi">replay</span> 30-day returns</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- page hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Home</a> / Collections</div>
+      <span class="eyebrow">The full collection</span>
+      <h1 id="pageTitle">All Watches</h1>
+      <p>Ten masterpieces of haute horlogerie. Filter by category, explore each piece, and add to your bag.</p>
+    </div>
+  </section>
+
+  <!-- catalog -->
+  <section class="pad" style="padding-top:50px">
+    <div class="wrap">
+      <div class="filterbar" id="filterBar">
+        <button class="fbtn on" data-f="all">All</button>
+        <button class="fbtn" data-f="Chronograph">Chronograph</button>
+        <button class="fbtn" data-f="Automatic">Automatic</button>
+        <button class="fbtn" data-f="Skeleton">Skeleton</button>
+        <button class="fbtn" data-f="Classic">Classic</button>
+        <button class="fbtn" data-f="Ladies">Ladies</button>
+      </div>
+      <div class="count" id="count"></div>
+      <div class="prod-grid" id="prodGrid"></div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="index.html" class="brand">LUM<b style="color:var(--gold)">I</b>ÈRE</a>
+          <p>Handcrafted luxury timepieces since 1898. Elegance and precision, in every second.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Watches</h5>
+          <a href="collections.html?cat=Chronograph">Chronograph</a>
+          <a href="collections.html?cat=Automatic">Automatic</a>
+          <a href="collections.html?cat=Skeleton">Skeleton</a>
+          <a href="collections.html?cat=Classic">Classic</a>
+        </div>
+        <div class="foot-col">
+          <h5>Maison</h5>
+          <a href="index.html#feature">Craftsmanship</a>
+          <a href="index.html#contact">Our Story</a>
+          <a href="#">Boutiques</a>
+        </div>
+        <div class="foot-col foot-contact">
+          <h5>Contact</h5>
+          <div><span class="msi">location_on</span> 1 Place Vendôme, City</div>
+          <div><span class="msi">call</span> +1 (555) 100-1898</div>
+          <div><span class="msi">mail</span> concierge@lumiere.demo</div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="yr"></span> Lumière (demo store) · Built by Sudharsan Kumar</span>
+        <span>Fictional brand · Sample images from Pexels</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // mobile menu
+    const mb=document.getElementById('menuBtn'), nl=document.getElementById('navLinks');
+    mb.addEventListener('click',()=>nl.classList.toggle('open'));
+    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
+
+    const grid=document.getElementById('prodGrid');
+    const countEl=document.getElementById('count');
+    function renderGrid(filter){
+      const list=filter&&filter!=='all'?PRODUCTS.filter(p=>p.cat===filter):PRODUCTS;
+      grid.innerHTML=list.map(Shop.cardHTML).join('');
+      countEl.textContent=`Showing ${list.length} of ${PRODUCTS.length} timepieces`;
+    }
+    // pre-select category from ?cat= URL param
+    const params=new URLSearchParams(location.search);
+    let initial=params.get('cat')||'all';
+    if(!['Chronograph','Automatic','Skeleton','Classic','Ladies'].includes(initial)) initial='all';
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('on',b.dataset.f===initial));
+    if(initial!=='all') document.getElementById('pageTitle').textContent=initial+' Watches';
+    renderGrid(initial);
+
+    document.getElementById('filterBar').addEventListener('click',e=>{
+      const b=e.target.closest('.fbtn'); if(!b)return;
+      document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on'); renderGrid(b.dataset.f);
+      document.getElementById('pageTitle').textContent=b.dataset.f==='all'?'All Watches':b.dataset.f+' Watches';
+    });
+
+    Shop.initGrid(grid);
+    Shop.initCartAndModal();
+  </script>
+</body>
+</html>

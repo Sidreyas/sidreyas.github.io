@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menu — Ember &amp; Oak</title>
+  <meta name="description" content="The full Ember & Oak menu — signature plates and today's hottest deals. Order online." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300,0,0&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="demo-banner">
+    Demo / POC restaurant site built by Sudharsan Kumar — fictional brand, sample images. &nbsp;
+    <a href="../../index.html">← Back to portfolio</a>
+  </div>
+
+  <!-- nav -->
+  <header id="header" class="solid-bar">
+    <div class="wrap nav">
+      <a href="index.html" class="brand">Ember <span class="amp">&amp;</span> Oak</a>
+      <nav class="nav-links" id="navLinks">
+        <a class="link" href="index.html#about">About</a>
+        <a class="link" href="menu.html">Menu</a>
+        <a class="link" href="index.html#deals">Deals</a>
+        <a class="link" href="index.html#events">Events</a>
+        <a class="btn btn-ember" href="#book">Reserve</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="nav-ic" id="searchBtn" aria-label="Search"><span class="msi">search</span></button>
+        <button class="nav-ic" id="favBtn" aria-label="Favourites"><span class="msi">favorite</span><span class="ic-badge" id="favBadge" hidden>0</span></button>
+        <button class="nav-ic" id="cartBtn" aria-label="Cart"><span class="msi">shopping_cart</span><span class="ic-badge" id="cartBadge" hidden>0</span></button>
+        <button class="menu-btn" id="menuBtn" aria-label="Menu"><span class="msi">menu</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- search overlay -->
+  <div class="search-panel" id="searchPanel">
+    <div class="wrap search-inner">
+      <div class="search-box">
+        <span class="msi">search</span>
+        <input type="text" id="searchInput" placeholder="Search for dishes — pizza, burger, momo…" autocomplete="off">
+        <button class="nav-ic" id="searchClose"><span class="msi">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <div class="backdrop" id="backdrop"></div>
+
+  <!-- cart drawer -->
+  <aside class="drawer" id="cartDrawer" aria-label="Your cart">
+    <div class="drawer-head"><h3>Your Order</h3><button class="drawer-close" data-close><span class="msi">close</span></button></div>
+    <div class="drawer-body" id="cartBody"></div>
+    <div class="drawer-foot" id="cartFoot">
+      <div class="sumrow"><span>Subtotal</span><strong id="cartSub">$0</strong></div>
+      <div class="sumrow small"><span>Delivery</span><span id="cartDel">$2.99</span></div>
+      <div class="sumrow small"><span>Taxes (5%)</span><span id="cartTax">$0</span></div>
+      <div class="sumrow total"><span>Total</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn btn-ember" id="checkoutBtn" style="width:100%;justify-content:center"><span class="msi">lock</span> Checkout</button>
+    </div>
+  </aside>
+
+  <!-- favourites drawer -->
+  <aside class="drawer" id="favDrawer" aria-label="Your favourites">
+    <div class="drawer-head"><h3>Favourites</h3><button class="drawer-close" data-close><span class="msi">close</span></button></div>
+    <div class="drawer-body" id="favBody"></div>
+  </aside>
+
+  <!-- checkout modal -->
+  <div class="modal" id="checkoutModal">
+    <div class="modal-box">
+      <button class="modal-close" data-close><span class="msi">close</span></button>
+      <div class="checkout-steps" id="checkoutSteps">
+        <span class="cstep on">1 · Details</span><span class="cstep">2 · Payment</span><span class="cstep">3 · Done</span>
+      </div>
+      <div class="cpane on" data-pane="1">
+        <h3>Delivery details</h3>
+        <div class="frow"><div><label>Full name</label><input id="coName" type="text" placeholder="Your name"></div><div><label>Phone</label><input id="coPhone" type="tel" placeholder="Phone"></div></div>
+        <label>Delivery address</label><input id="coAddr" type="text" placeholder="Street, area, city">
+        <div class="order-summary" id="coSummary"></div>
+        <button class="btn btn-ember" id="coNext1" style="width:100%;justify-content:center;margin-top:18px">Continue to payment</button>
+      </div>
+      <div class="cpane" data-pane="2">
+        <h3>Payment</h3>
+        <div class="pay-opts">
+          <label class="pay-opt"><input type="radio" name="pay" checked> <span class="msi">credit_card</span> Card on file ····4242</label>
+          <label class="pay-opt"><input type="radio" name="pay"> <span class="msi">account_balance_wallet</span> UPI / Wallet</label>
+          <label class="pay-opt"><input type="radio" name="pay"> <span class="msi">payments</span> Cash on delivery</label>
+        </div>
+        <div class="sumrow total" style="margin-top:18px"><span>Amount payable</span><strong id="coPay">$0</strong></div>
+        <button class="btn btn-ember" id="coPlace" style="width:100%;justify-content:center;margin-top:16px"><span class="msi">check</span> Place order</button>
+        <button class="linkbtn" id="coBack">← Back</button>
+      </div>
+      <div class="cpane" data-pane="3" style="text-align:center">
+        <div class="success-ic"><span class="msi">check_circle</span></div>
+        <h3>Order placed!</h3>
+        <p class="muted">Your food is being prepared. Estimated delivery in <strong>32 min</strong>.</p>
+        <p class="order-id">Order #<span id="coOrderId"></span></p>
+        <button class="btn btn-ember" data-close style="justify-content:center;margin-top:10px">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- page hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Home</a> / Menu</div>
+      <span class="eyebrow">Eat well</span>
+      <h1>Our Full <em class="ember">Menu</em></h1>
+      <p>Signature plates and today's hottest deals — all in one place. Filter, favourite, and order online.</p>
+    </div>
+  </section>
+
+  <!-- catalog -->
+  <section class="pad" style="padding-top:10px">
+    <div class="wrap">
+      <div class="filter-pills" id="filterPills">
+        <button class="fp on" data-f="all">All</button>
+        <button class="fp" data-f="deal">Deals</button>
+        <button class="fp" data-f="Pizza">Pizza</button>
+        <button class="fp" data-f="Burgers">Burgers</button>
+        <button class="fp" data-f="Chicken">Chicken</button>
+        <button class="fp" data-f="Mains">Mains</button>
+        <button class="fp" data-f="Dessert">Dessert</button>
+      </div>
+      <div class="menu-count" id="menuCount"></div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="index.html" class="brand">Ember <span class="amp" style="color:var(--ember)">&amp;</span> Oak</a>
+          <p>Modern fine dining crafted with fire and soul. Where every evening is something to be savored.</p>
+        </div>
+        <div class="foot-col"><h5>Explore</h5><a href="index.html#about">About</a><a href="menu.html">Menu</a><a href="index.html#deals">Deals</a><a href="index.html#events">Events</a></div>
+        <div class="foot-col"><h5>Visit</h5><a href="index.html#book">Reservations</a><a href="#">Private Dining</a><a href="#">Gift Cards</a></div>
+        <div class="foot-col"><h5>Find us</h5>
+          <div class="ci"><span class="msi">location_on</span> 24 Oakwood Lane, City</div>
+          <div class="ci"><span class="msi">call</span> +1 (555) 320-1840</div>
+          <div class="ci"><span class="msi">mail</span> hello@emberandoak.demo</div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="yr"></span> Ember &amp; Oak (demo) · Built by Sudharsan Kumar</span>
+        <span>Fictional brand · Sample images from Pexels</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const mb=document.getElementById('menuBtn'), nl=document.getElementById('navLinks');
+    mb.addEventListener('click',()=>nl.classList.toggle('open'));
+    nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
+
+    // render all 12 items as menu cards
+    const grid=document.getElementById('menuGrid'), countEl=document.getElementById('menuCount');
+    function rate(p){return p.rating?`<span class="rate">${p.rating} <span class="msi">star</span></span>`:'';}
+    function card(p){return `
+      <div class="mcard">
+        <div class="ph">${p.offer?`<span class="offer">${p.offer}</span>`:''}
+          <button class="heart${MENU_FAVS().has(p.id)?' on':''}" data-fav="${p.id}"><span class="msi">favorite</span></button>
+          <img src="img/${p.img}" alt="${p.name}"></div>
+        <div class="body">
+          <h3>${p.name}</h3><div class="cat">${p.cat}</div>
+          ${rate(p)}
+          <div class="priceline">
+            <div><span class="now">$${p.price.toFixed(2)}</span>${p.was?`<span class="was">$${p.was.toFixed(2)}</span>`:''}</div>
+            <button class="addbtn" data-add="${p.id}">Add +</button>
+          </div>
+        </div>
+      </div>`;}
+    function MENU_FAVS(){return (window.__favs||new Set());}
+    function render(filter){
+      let list=ITEMS;
+      if(filter==='deal')list=ITEMS.filter(x=>x.offer);
+      else if(filter&&filter!=='all')list=ITEMS.filter(x=>x.cat===filter);
+      grid.innerHTML=list.map(card).join('');
+      countEl.textContent=`Showing ${list.length} of ${ITEMS.length} dishes`;
+    }
+    render('all');
+    document.getElementById('filterPills').addEventListener('click',e=>{
+      const b=e.target.closest('.fp'); if(!b)return;
+      document.querySelectorAll('.fp').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on'); render(b.dataset.f);
+    });
+  </script>
+</body>
+</html>
