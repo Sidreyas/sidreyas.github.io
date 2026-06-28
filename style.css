@@ -187,6 +187,14 @@
       transition:opacity .3s,transform .3s cubic-bezier(.2,.7,.2,1);white-space:nowrap}
     .proj:hover .viewp{opacity:1;transform:translate(-50%,-50%) scale(1)}
     .proj .viewp .msi{font-size:1rem}
+    /* always-visible name + description, bottom-left corner */
+    .proj .proj-meta{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:34px 16px 14px;
+      background:linear-gradient(to top,rgba(15,13,10,.92) 0%,rgba(15,13,10,.65) 45%,transparent 100%);
+      transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+    .proj:hover .proj-meta{transform:translateY(6px)}
+    .proj .proj-meta h4{margin:0;color:#fff;font-family:'Inter';font-weight:700;font-size:.95rem;letter-spacing:-.01em}
+    .proj .proj-meta p{margin:3px 0 0;color:rgba(255,255,255,.72);font-family:'Inter';font-weight:500;
+      font-size:.74rem;line-height:1.35}
     .work-hint{display:flex;align-items:center;gap:8px;color:var(--faint);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
     .work-hint .msi{color:var(--orange)}
 
