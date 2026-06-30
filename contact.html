@@ -169,6 +169,13 @@
     mb.addEventListener('click',()=>nl.classList.toggle('open'));
     nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
 
+    // header: hide on scroll-down, reveal on scroll-up
+    (function(){const hdr=document.querySelector('header');let lastY=scrollY;
+      addEventListener('scroll',()=>{const y=scrollY;
+        if(y>120 && y>lastY+4 && !nl.classList.contains('open'))hdr.classList.add('nav-hidden');
+        else if(y<lastY-4 || y<=120)hdr.classList.remove('nav-hidden');
+        lastY=y;},{passive:true});})();
+
     // form submit -> success state (demo, no backend)
     document.getElementById('contactForm').addEventListener('submit',e=>{
       e.preventDefault();
