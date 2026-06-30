@@ -147,6 +147,10 @@
     .srv-slide p{color:var(--dim);font-size:1.05rem;max-width:440px;margin-bottom:22px}
     .srv-slide .tags{display:flex;flex-wrap:wrap;gap:10px}
     .srv-slide .tags span{background:#fff;border:1px solid var(--line);font-size:.78rem;font-weight:600;padding:9px 14px;color:var(--ink);white-space:nowrap}
+    .srv-more{display:inline-flex;align-items:center;gap:6px;margin-top:22px;font-family:'Inter';font-weight:700;
+      font-size:.82rem;letter-spacing:.02em;color:var(--orange);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s}
+    .srv-more:hover{border-color:var(--orange)}
+    .srv-more .msi{font-size:1rem}
 
     /* right column: visual panel — explicit height so it fills the column
        (aspect-ratio alone collapses because the .vp children are absolute) */
@@ -314,6 +318,20 @@ header.bar .nav-links a:hover{opacity:.75}
 .srow .thumb-img .g{position:absolute;inset:0}
 .srow .thumb-img .pat{position:absolute;inset:0;opacity:.55}
 
+/* Web Development sub-services grid */
+.subsvc{border-top:1px solid var(--line);padding:40px 0 8px}
+.subsvc-head{display:flex;align-items:center;gap:10px;font-family:'Inter';font-weight:700;font-size:.78rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:28px}
+.subsvc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.subcard{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--orange);
+  padding:24px 22px;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.subcard:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(0,0,0,.1)}
+.subcard .ic{font-size:1.9rem;color:var(--orange);margin-bottom:12px;display:block}
+.subcard h4{font-family:'Inter';font-weight:700;font-size:1.02rem;letter-spacing:-.01em;color:var(--ink);margin-bottom:14px;line-height:1.2}
+.subcard ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.subcard li{position:relative;padding-left:18px;font-size:.86rem;color:var(--dim);line-height:1.4}
+.subcard li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--orange);transform:rotate(45deg)}
+
 /* one-by-one reveal for the rows */
 .rise{opacity:0;transform:translateY(60px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
 .rise.in{opacity:1;transform:none}
@@ -321,4 +339,8 @@ header.bar .nav-links a:hover{opacity:.75}
 @media(max-width:820px){
   .srow{grid-template-columns:50px 1fr;gap:20px}
   .srow .thumb-img{grid-column:1/-1}
+  .subsvc-grid{grid-template-columns:1fr}
+}
+@media(min-width:821px) and (max-width:1100px){
+  .subsvc-grid{grid-template-columns:repeat(2,1fr)}
 }
