@@ -230,12 +230,9 @@
     // one-by-one reveal as each row scrolls into view
     const rows=[...document.querySelectorAll('.rise')];
     const io=new IntersectionObserver(es=>es.forEach(e=>{
-      if(e.isIntersecting){
-        const i=rows.indexOf(e.target);
-        e.target.style.transitionDelay=(i>=0?(i%2)*0.12:0)+'s';
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
+      const i=rows.indexOf(e.target);
+      e.target.style.transitionDelay=(e.isIntersecting && i>=0?(i%2)*0.12:0)+'s';
+      e.target.classList.toggle('in',e.isIntersecting);
     }),{threshold:.2});
     rows.forEach(r=>io.observe(r));
 
@@ -248,6 +245,34 @@
     }
     addEventListener('scroll',setActive,{passive:true});
     setActive();
+
+    // --- sub-service cards: staggered "deal" reveal on scroll ---
+    const cards=[...document.querySelectorAll('.subcard')];
+    const cardIO=new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        const i=cards.indexOf(e.target);
+        if(e.isIntersecting){
+          // diagonal stagger: row-by-row, left-to-right (3-col grid)
+          const col=i%3, row=Math.floor(i/3);
+          e.target.style.transitionDelay=(row*0.18 + col*0.09)+'s';
+          e.target.classList.add('dealt');
+        }else{
+          // reset instantly (no stagger) so it re-deals next time it enters
+          e.target.style.transitionDelay='0s';
+          e.target.classList.remove('dealt');
+        }
+      });
+    },{threshold:.25, rootMargin:'0px 0px -8% 0px'});
+    cards.forEach(c=>cardIO.observe(c));
+
+    // cursor spotlight glow on each card
+    cards.forEach(c=>{
+      c.addEventListener('pointermove',ev=>{
+        const r=c.getBoundingClientRect();
+        c.style.setProperty('--mx',(ev.clientX-r.left)+'px');
+        c.style.setProperty('--my',(ev.clientY-r.top)+'px');
+      });
+    });
   </script>
 </body>
 </html>

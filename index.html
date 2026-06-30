@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sudharsan Kumar® — AI Engineer & Full-stack Developer</title>
-  <meta name="description" content="AI Engineer building LLM/GenAI applications, AI strategy, and modern web experiences. Available for freelance projects." />
+  <meta name="description" content="Sudharsan — an AI Engineer crafting AI applications that actually work, turning ideas into working software. Available for freelance projects." />
   <meta property="og:title" content="Sudharsan Kumar — AI Engineer & Full-stack Developer" />
-  <meta property="og:description" content="LLM/GenAI apps, AI consulting, and web development — available for freelance work." />
+  <meta property="og:description" content="An AI Engineer crafting AI applications that actually work — turning ideas into working software. Available for freelance work." />
   <meta property="og:type" content="website" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,21 +52,16 @@
           <div class="scroll-tag" style="margin-top:4px">[ Scroll to explore ]</div>
         </div>
       </div>
-      <h1 class="display"><span class="b">AI THAT</span> <span class="g">SHIPS.</span></h1>
+      <h1 class="display"><span class="b">JUST A GUY WHO BUILT</span> <span class="g">AI SYSTEMS THAT ACTUALLY WORK.</span></h1>
 
       <div class="hero-sub reveal">
         <div>
           <div class="sec-tag"><span class="pill"><span class="dot"></span> Available for freelance</span></div>
-          <p class="lead">I'm <b>Sudharsan</b> — an AI Engineer crafting <b>LLM &amp; GenAI applications</b>, AI strategy, and fast, dependable websites. Evenings &amp; weekends, I turn ideas into working software.</p>
+          <p class="lead">Hi, I'm <b>Sudharsan</b> — an AI Engineer crafting <b>AI applications</b> by just turning ideas into working software.</p>
           <div class="hero-cta">
             <a class="btn btn-orange" href="#contact">Book a call <span class="ico"><span class="msi">north_east</span></span></a>
             <a class="btn btn-out" href="#work">View my work</a>
           </div>
-        </div>
-        <div class="hero-meta">
-          <span><span class="live"></span> Open to new work</span>
-          <span><span class="msi orange">public</span> Remote · Worldwide</span>
-          <span><span class="msi orange">bolt</span> Fast turnaround</span>
         </div>
       </div>
     </div>
@@ -351,9 +346,9 @@
     }
     // reveal
     const io=new IntersectionObserver(es=>es.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('in');
-        e.target.querySelectorAll&&e.target.querySelectorAll('[data-count]').forEach(animateCount);
-        io.unobserve(e.target);}
+      e.target.classList.toggle('in',e.isIntersecting);
+      if(e.isIntersecting && e.target.querySelectorAll)
+        e.target.querySelectorAll('[data-count]').forEach(animateCount);
     }),{threshold:.12});
     document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+'ms';io.observe(el);});
 
